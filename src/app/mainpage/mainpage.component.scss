@@ -1,0 +1,12 @@
+:host ::ng-deep .customCalendarStyle {
+  thead {
+    color: red;
+  }
+  .ui-datepicker-weeknumber {
+    color: yellow;
+  }
+  .ui-datepicker-today .ui-state-default {
+    background-color: blue;
+  }
+}
+
