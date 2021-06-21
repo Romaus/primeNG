@@ -1,16 +1,14 @@
-$redColor: rgba(255,0,0,1);
-$yellowColor: rgba(255,255,0,1);
-$blueColor: rgba(0,0,255,1);
+@use 'colors';
 
 :host ::ng-deep .customCalendarStyle {
   thead {
-    color: $redColor;
+    color: colors.$redColor;
   }
   .ui-datepicker-weeknumber {
-    color: $yellowColor;
+    color: colors.$yellowColor;
   }
   .ui-datepicker-today .ui-state-default {
-    background-color: $blueColor;
+    background-color: colors.$blueColor;
   }
 }
 
