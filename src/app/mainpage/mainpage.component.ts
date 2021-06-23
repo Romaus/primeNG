@@ -5,13 +5,20 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './mainpage.component.html',
   styleUrls: ['./mainpage.component.scss']
 })
+
 export class MainpageComponent implements OnInit {
 
   date1: Date = new Date();
-
   constructor() { }
-
   ru: any;
+  timer = 0;
+  time = 0;
+  timerexpired = false;
+  startTime: any;
+  finishTime: any;
+  floor = (num: number) => {
+    return Math.floor(num);
+  }
 
   ngOnInit(): void {
     this.ru = {
@@ -26,6 +33,20 @@ export class MainpageComponent implements OnInit {
       dateFormat: 'dd/mm/yy',
       weekHeader: 'Нд'
     };
+    sessionStorage.removeItem('sessionFinishTime');
+    sessionStorage.setItem('sessionStartTime', JSON.stringify(Date.now()));
+    this.startTime = sessionStorage.getItem('sessionStartTime');
+    const sessionTime = () => {
+      this.time = Math.floor((Date.now() - this.startTime) / 1000);
+      this.timer = 60 - this.time;
+      if (this.timer <= 0) {
+        clearInterval(sessionTimerCheck);
+        this.timerexpired = true;
+        sessionStorage.setItem('sessionFinishTime', JSON.stringify(Date.now()));
+        this.finishTime = sessionStorage.getItem('sessionFinishTime');
+      }
+    };
+    const sessionTimerCheck = setInterval(sessionTime, 1000);
   }
 
 }

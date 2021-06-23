@@ -11,4 +11,12 @@
     background-color: colors.$blueColor;
   }
 }
+.sessionStorage {
+  padding: 2rem;
+  border: 0.1rem dashed colors.$redColor;
+  width: 300px;
+}
+.expired {
+  color: colors.$redColor;
+}
 
