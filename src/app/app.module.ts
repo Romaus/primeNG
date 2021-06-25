@@ -5,18 +5,18 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainpageModule } from './mainpage/mainpage.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { TableComponent } from './table/table.component';
+import {TablepageModule} from './tablepage/tablepage.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    TableComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    MainpageModule
+    MainpageModule,
+    TablepageModule
   ],
   providers: [],
   bootstrap: [AppComponent]
