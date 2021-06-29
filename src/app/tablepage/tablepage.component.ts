@@ -28,13 +28,14 @@ export class TablepageComponent implements OnInit{
     private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
-    if (this.localStorageService.getItems()) {
-      this.products = this.localStorageService.getItems();
+    if (this.localStorageService.getItems('items')) {
+      this.products = this.localStorageService.getItems('items');
     }
   }
 
   saveToStorage(): void {
-    this.localStorageService.updateItems(this.products);
+    this.localStorageService.updateItems('items', this.products);
+    this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Changes saved to LocalStorage', life: 3000});
   }
 
   openNew(): void{
