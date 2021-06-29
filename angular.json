@@ -33,7 +33,7 @@
             "styles": [
               "src/styles.scss",
               "node_modules/primeicons/primeicons.css",
-              "node_modules/primeng-lts/resources/themes/nova-colored/theme.css",
+              "node_modules/primeng-lts/resources/themes/nova/theme.css",
               "node_modules/primeng-lts/resources/primeng.min.css"
             ],
             "scripts": []
@@ -52,7 +52,7 @@
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
-              "buildOptimizer": true,
+              "buildOptimizer": false,
               "budgets": [
                 {
                   "type": "initial",

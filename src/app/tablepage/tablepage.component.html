@@ -2,17 +2,13 @@
 
 <div class="card">
   <p-toolbar styleClass="p-mb-4">
-    <ng-template #left pTemplate="left">
+    <ng-template pTemplate="left">
       <button pButton label="New" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="openNew()"></button>
       <button pButton label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button>
     </ng-template>
-    <ng-container *ngTemplateOutlet="left">
-    </ng-container>
-    <ng-template #right pTemplate="right">
-      <button pButton label="Save" icon="pi pi-upload" class="p-button-success p-mr-2" (click)="saveToStorage()"></button>
+    <ng-template pTemplate="right">
+      <button pButton label="Save" icon="pi pi-upload" class="p-button p-mr-2" (click)="saveToStorage()"></button>
     </ng-template>
-    <ng-container *ngTemplateOutlet="right">
-    </ng-container>
   </p-toolbar>
 
   <p-table [value]="products"
@@ -35,11 +31,11 @@
         <td>
           <p-tableCheckbox [value]="product"></p-tableCheckbox>
         </td>
-        <td>{{product.name}}</td>
-        <td>{{product.email}}</td>
-        <td>{{product.description}}</td>
-        <td>{{product.price | currency:'USD'}}</td>
-        <td>{{product.category}}</td>
+        <td>{{product['name']}}</td>
+        <td>{{product['email']}}</td>
+        <td>{{product['description']}}</td>
+        <td>{{product['price'] | currency:'USD'}}</td>
+        <td>{{product['category']}}</td>
         <td>
           <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="editProduct(product)"></button>
           <button pButton icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteProduct(product)"></button>
@@ -55,7 +51,7 @@
 </div>
 
 <p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Product Details" [modal]="true" styleClass="p-fluid">
-  <ng-template #content>
+  <ng-template pTemplate="content">
     <div class="p-field">
       <label for="name">Name</label>
       <input type="text" pInputText id="name" [(ngModel)]="product.name" required/>
@@ -104,14 +100,10 @@
       </div>
     </div>
   </ng-template>
-  <ng-container *ngTemplateOutlet="content">
-  </ng-container>
-  <ng-template #footer pTemplate="footer">
+  <ng-template pTemplate="footer">
     <button pButton label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
     <button pButton label="Save" icon="pi pi-check" class="p-button-text" (click)="saveProduct()"></button>
   </ng-template>
-  <ng-container *ngTemplateOutlet="footer">
-  </ng-container>
 </p-dialog>
 
 <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
