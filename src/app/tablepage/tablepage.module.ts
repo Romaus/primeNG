@@ -24,6 +24,7 @@ import { MessageService } from 'primeng/api';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ReactiveFormsModule } from '@angular/forms';
 import {ToastModule} from 'primeng/toast';
+import {InputMaskModule} from 'primeng/inputmask';
 
 @NgModule({
   imports: [
@@ -45,7 +46,8 @@ import {ToastModule} from 'primeng/toast';
     InputNumberModule,
     ConfirmDialogModule,
     InputTextareaModule,
-    ToastModule
+    ToastModule,
+    InputMaskModule
   ],
   declarations: [ TablepageComponent ],
   bootstrap:    [ TablepageComponent ],

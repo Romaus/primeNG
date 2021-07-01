@@ -3,6 +3,8 @@ import { Product } from '../types/product';
 import { LocalStorageService } from '../services/localstorageservice';
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { phoneCodeBelarusValidator } from '../shared/belarus-phoneCodeNumberValidator.directive';
 
 @Component({
   selector: 'app-tablepage',
@@ -22,6 +24,8 @@ export class TablepageComponent implements OnInit{
 
   submitted!: boolean;
 
+  itemForm: any;
+
   constructor(
     private localStorageService: LocalStorageService,
     private messageService: MessageService,
@@ -31,6 +35,25 @@ export class TablepageComponent implements OnInit{
     if (this.localStorageService.getItems('items')) {
       this.products = this.localStorageService.getItems('items');
     }
+
+    this.itemForm = new FormGroup({
+      name: new FormControl(this.product.name, [Validators.required]),
+      email: new FormControl(this.product.email, [
+        Validators.required,
+        Validators.email
+      ]),
+      phone: new FormControl(this.product.phone, [
+        Validators.required,
+        phoneCodeBelarusValidator()
+      ]),
+      description: new FormControl(this.product.description, [
+        Validators.required,
+        Validators.minLength(20)
+      ]),
+      category: new FormControl(this.product.category),
+      price: new FormControl(this.product.price),
+      quantity: new FormControl(this.product.quantity)
+    });
   }
 
   saveToStorage(): void {
