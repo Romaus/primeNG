@@ -25,6 +25,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ReactiveFormsModule } from '@angular/forms';
 import {ToastModule} from 'primeng/toast';
 import {InputMaskModule} from 'primeng/inputmask';
+import {DateFormatService} from '../services/dateformatservice';
 
 @NgModule({
   imports: [
@@ -51,7 +52,7 @@ import {InputMaskModule} from 'primeng/inputmask';
   ],
   declarations: [ TablepageComponent ],
   bootstrap:    [ TablepageComponent ],
-  providers: [LocalStorageService, MessageService, ConfirmationService]
+  providers: [LocalStorageService, DateFormatService, MessageService, ConfirmationService]
 })
 
 export class TablepageModule { }

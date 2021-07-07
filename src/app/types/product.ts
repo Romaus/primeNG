@@ -1,4 +1,5 @@
 export interface Product {
+  updatedate?: any;
   phone?: any;
   email?: string;
   id?: string;

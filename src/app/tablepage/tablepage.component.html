@@ -23,6 +23,7 @@
         <th pSortableColumn="email">Pnone <p-sortIcon field="phone"></p-sortIcon></th>
         <th pSortableColumn="description">Description <p-sortIcon field="description"></p-sortIcon></th>
         <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
+        <th pSortableColumn="updatedate">UpdateDate <p-sortIcon field="price"></p-sortIcon></th>
         <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon></th>
         <th></th>
       </tr>
@@ -37,6 +38,7 @@
         <td>{{product['phone']}}</td>
         <td>{{product['description']}}</td>
         <td>{{product['price'] | currency:'USD'}}</td>
+        <td>{{product['updatedate']}}</td>
         <td>{{product['category']}}</td>
         <td>
           <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="editProduct(product)"></button>
@@ -51,6 +53,13 @@
     </ng-template>
   </p-table>
 </div>
+
+<input type="text" pInputText [(ngModel)]="date"/>
+<p-button label="Show Date US Pipe" (onClick)="showDatePipe()"></p-button>
+<p-button label="Show Date US Pipe" (onClick)="showDateMoment()"></p-button>
+
+<div *ngIf="datePipe">{{ datePipe | date :'MM/dd/yyyy' }}</div>
+<div *ngIf="dateMoment">{{ dateMoment}}</div>
 
 <p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Item Details" [modal]="true" styleClass="p-fluid">
   <ng-template pTemplate="content" [formGroup]='itemForm'>
@@ -124,7 +133,16 @@
         </div>
       </div>
     </div>
-
+    <div class="p-field">
+      <label for="updatedate">UpdateDate</label>
+      <input
+        type="text"
+        pInputText
+        id="updatedate"
+        formControlName="updatedate"
+        [(ngModel)]="product.updatedate"
+      />
+    </div>
     <div class="p-formgrid p-grid">
       <div class="p-field p-col">
         <label for="price">Price</label>
@@ -135,7 +153,7 @@
         <p-inputNumber id="quantity" [(ngModel)]="product.quantity" formControlName="quantity"></p-inputNumber>
       </div>
     </div>
-  </ng-template>
+   </ng-template>
   <ng-template pTemplate="footer">
     <button pButton label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
     <button

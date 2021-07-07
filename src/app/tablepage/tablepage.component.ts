@@ -5,6 +5,7 @@ import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { phoneCodeBelarusValidator } from '../shared/belarus-phoneCodeNumberValidator.directive';
+import {DateFormatService} from '../services/dateformatservice';
 
 @Component({
   selector: 'app-tablepage',
@@ -15,20 +16,19 @@ import { phoneCodeBelarusValidator } from '../shared/belarus-phoneCodeNumberVali
 export class TablepageComponent implements OnInit{
 
   productDialog!: boolean;
-
   products: Product[] = [];
-
   product: Product = {};
-
   selectedProducts: any;
-
   submitted!: boolean;
-
   itemForm: any;
+  date?: string;
+  datePipe?: string;
+  dateMoment?: string;
 
   constructor(
     private localStorageService: LocalStorageService,
     private messageService: MessageService,
+    private formatdate: DateFormatService,
     private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
@@ -52,10 +52,18 @@ export class TablepageComponent implements OnInit{
       ]),
       category: new FormControl(this.product.category),
       price: new FormControl(this.product.price),
-      quantity: new FormControl(this.product.quantity)
+      quantity: new FormControl(this.product.quantity),
+      updatedate: new FormControl(this.product.updatedate)
     });
   }
-
+  showDatePipe(): void {
+    this.datePipe = this.date;
+  }
+  showDateMoment(): void {
+    if (this.date) {
+      this.dateMoment = this.formatdate.convertByMomentToUS(this.date);
+    }
+  }
   saveToStorage(): void {
     this.localStorageService.updateItems('items', this.products);
     this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Changes saved to LocalStorage', life: 3000});
@@ -105,7 +113,7 @@ export class TablepageComponent implements OnInit{
 
   saveProduct(): void {
     this.submitted = true;
-
+    this.product.updatedate = this.formatdate.convertByMomentToUS(this.product.updatedate);
     // @ts-ignore
     if (this.product.name.trim()) {
       if (this.product.id && this.products.length !== 0) {
