@@ -1,5 +1,6 @@
 export interface Product {
-  updatedate?: any;
+  startdate?: any;
+  enddate?: any;
   phone?: any;
   email?: string;
   id?: string;

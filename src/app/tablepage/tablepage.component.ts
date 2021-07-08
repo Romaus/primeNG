@@ -50,7 +50,8 @@ export class TablepageComponent implements OnInit{
       category: new FormControl(this.product.category),
       price: new FormControl(this.product.price),
       quantity: new FormControl(this.product.quantity),
-      updatedate: new FormControl(this.product.updatedate)
+      startdate: new FormControl(this.product.startdate),
+      enddate: new FormControl(this.product.enddate)
     });
   }
 
@@ -103,7 +104,8 @@ export class TablepageComponent implements OnInit{
 
   saveProduct(): void {
     this.submitted = true;
-    this.product.updatedate = this.formatdate.convertByMomentToUS(this.product.updatedate);
+    this.product.startdate = this.formatdate.convertByMomentToUS(this.product.startdate);
+    this.product.enddate = this.formatdate.convertByMomentToUS(this.product.enddate);
     // @ts-ignore
     if (this.product.name.trim()) {
       if (this.product.id && this.products.length !== 0) {

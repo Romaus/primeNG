@@ -23,7 +23,8 @@
         <th pSortableColumn="email">Pnone <p-sortIcon field="phone"></p-sortIcon></th>
         <th pSortableColumn="description">Description <p-sortIcon field="description"></p-sortIcon></th>
         <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
-        <th pSortableColumn="updatedate">UpdateDate <p-sortIcon field="price"></p-sortIcon></th>
+        <th pSortableColumn="startdate">StartDate <p-sortIcon field="price"></p-sortIcon></th>
+        <th pSortableColumn="enddate">EndDate <p-sortIcon field="price"></p-sortIcon></th>
         <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon></th>
         <th></th>
       </tr>
@@ -38,10 +39,11 @@
         <td>{{product['phone']}}</td>
         <td>{{product['description']}}</td>
         <td>{{product['price'] | currency:'USD'}}</td>
-        <td>{{product['updatedate']}}</td>
+        <td>{{product['startdate']}}</td>
+        <td>{{product['enddate']}}</td>
         <td>{{product['category']}}</td>
         <td>
-          <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="editProduct(product)"></button>
+          <button [disabled]="false" pButton icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="editProduct(product)"></button>
           <button pButton icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteProduct(product)"></button>
         </td>
       </tr>
@@ -127,13 +129,23 @@
       </div>
     </div>
     <div class="p-field">
-      <label for="updatedate">UpdateDate</label>
+      <label for="enddate">StartDate</label>
       <input
         type="text"
         pInputText
-        id="updatedate"
-        formControlName="updatedate"
-        [(ngModel)]="product.updatedate"
+        id="startdate"
+        formControlName="startdate"
+        [(ngModel)]="product.startdate"
+      />
+    </div>
+    <div class="p-field">
+      <label for="enddate">EndDate</label>
+      <input
+        type="text"
+        pInputText
+        id="enddate"
+        formControlName="startdate"
+        [(ngModel)]="product.enddate"
       />
     </div>
     <div class="p-formgrid p-grid">
