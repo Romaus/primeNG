@@ -21,9 +21,6 @@ export class TablepageComponent implements OnInit{
   selectedProducts: any;
   submitted!: boolean;
   itemForm: any;
-  date?: string;
-  datePipe?: string;
-  dateMoment?: string;
 
   constructor(
     private localStorageService: LocalStorageService,
@@ -56,14 +53,7 @@ export class TablepageComponent implements OnInit{
       updatedate: new FormControl(this.product.updatedate)
     });
   }
-  showDatePipe(): void {
-    this.datePipe = this.date;
-  }
-  showDateMoment(): void {
-    if (this.date) {
-      this.dateMoment = this.formatdate.convertByMomentToUS(this.date);
-    }
-  }
+
   saveToStorage(): void {
     this.localStorageService.updateItems('items', this.products);
     this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Changes saved to LocalStorage', life: 3000});

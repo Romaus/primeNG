@@ -54,13 +54,6 @@
   </p-table>
 </div>
 
-<input type="text" pInputText [(ngModel)]="date"/>
-<p-button label="Show Date US Pipe" (onClick)="showDatePipe()"></p-button>
-<p-button label="Show Date US Pipe" (onClick)="showDateMoment()"></p-button>
-
-<div *ngIf="datePipe">{{ datePipe | date :'MM/dd/yyyy' }}</div>
-<div *ngIf="dateMoment">{{ dateMoment}}</div>
-
 <p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Item Details" [modal]="true" styleClass="p-fluid">
   <ng-template pTemplate="content" [formGroup]='itemForm'>
     <div class="p-field">
