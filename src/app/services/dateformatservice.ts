@@ -11,4 +11,8 @@ export class DateFormatService {
   convertByMomentToUS(date: string): any {
     return moment(date).format('MM/DD/YYYY');
   }
+
+  isbetween(date: any, startdate: any, enddate: any): boolean {
+    return moment(date).isBetween(startdate, enddate);
+  }
 }

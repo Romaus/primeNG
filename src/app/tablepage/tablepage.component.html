@@ -43,7 +43,7 @@
         <td>{{product['enddate']}}</td>
         <td>{{product['category']}}</td>
         <td>
-          <button [disabled]="false" pButton icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="editProduct(product)"></button>
+          <button [disabled]="!formatdate.isbetween(today, product['startdate'], product['enddate'])" pButton icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="editProduct(product)"></button>
           <button pButton icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteProduct(product)"></button>
         </td>
       </tr>
@@ -129,7 +129,7 @@
       </div>
     </div>
     <div class="p-field">
-      <label for="enddate">StartDate</label>
+      <label for="startdate">StartDate</label>
       <input
         type="text"
         pInputText
@@ -137,6 +137,8 @@
         formControlName="startdate"
         [(ngModel)]="product.startdate"
       />
+      <small class="p-invalid" *ngIf="itemForm.get('startdate').hasError('required')">StartDate is required.</small>
+      <small class="p-invalid" *ngIf="itemForm.get('startdate').hasError('dateinvalid')">Invalid Date Format</small>
     </div>
     <div class="p-field">
       <label for="enddate">EndDate</label>
@@ -144,9 +146,11 @@
         type="text"
         pInputText
         id="enddate"
-        formControlName="startdate"
+        formControlName="enddate"
         [(ngModel)]="product.enddate"
       />
+      <small class="p-invalid" *ngIf="itemForm.get('enddate').hasError('required')">EndDate is required.</small>
+      <small class="p-invalid" *ngIf="itemForm.get('enddate').hasError('dateinvalid')">Invalid Date Format</small>
     </div>
     <div class="p-formgrid p-grid">
       <div class="p-field p-col">

@@ -4,7 +4,7 @@ import { LocalStorageService } from '../services/localstorageservice';
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import { phoneCodeBelarusValidator } from '../shared/belarus-phoneCodeNumberValidator.directive';
+import { ValidatorsDirective } from '../shared/Customvalidators.directive';
 import {DateFormatService} from '../services/dateformatservice';
 
 @Component({
@@ -21,12 +21,14 @@ export class TablepageComponent implements OnInit{
   selectedProducts: any;
   submitted!: boolean;
   itemForm: any;
+  today = new Date(Date.now());
 
   constructor(
     private localStorageService: LocalStorageService,
     private messageService: MessageService,
-    private formatdate: DateFormatService,
-    private confirmationService: ConfirmationService) { }
+    public formatdate: DateFormatService,
+    private confirmationService: ConfirmationService,
+    private customValidator: ValidatorsDirective) { }
 
   ngOnInit(): void {
     if (this.localStorageService.getItems('items')) {
@@ -41,7 +43,7 @@ export class TablepageComponent implements OnInit{
       ]),
       phone: new FormControl(this.product.phone, [
         Validators.required,
-        phoneCodeBelarusValidator()
+        this.customValidator.phoneCodeBelarusValidator()
       ]),
       description: new FormControl(this.product.description, [
         Validators.required,
@@ -50,8 +52,14 @@ export class TablepageComponent implements OnInit{
       category: new FormControl(this.product.category),
       price: new FormControl(this.product.price),
       quantity: new FormControl(this.product.quantity),
-      startdate: new FormControl(this.product.startdate),
-      enddate: new FormControl(this.product.enddate)
+      startdate: new FormControl(this.product.startdate, [
+        Validators.required,
+        this.customValidator.dateValidator()
+      ]),
+      enddate: new FormControl(this.product.enddate, [
+        Validators.required,
+        this.customValidator.dateValidator()
+      ])
     });
   }
 

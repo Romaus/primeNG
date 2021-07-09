@@ -26,6 +26,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {ToastModule} from 'primeng/toast';
 import {InputMaskModule} from 'primeng/inputmask';
 import {DateFormatService} from '../services/dateformatservice';
+import {ValidatorsDirective} from '../shared/Customvalidators.directive';
 
 @NgModule({
   imports: [
@@ -52,7 +53,7 @@ import {DateFormatService} from '../services/dateformatservice';
   ],
   declarations: [ TablepageComponent ],
   bootstrap:    [ TablepageComponent ],
-  providers: [LocalStorageService, DateFormatService, MessageService, ConfirmationService]
+  providers: [LocalStorageService, DateFormatService, MessageService, ConfirmationService, ValidatorsDirective]
 })
 
 export class TablepageModule { }
