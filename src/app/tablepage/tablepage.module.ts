@@ -27,30 +27,32 @@ import {ToastModule} from 'primeng/toast';
 import {InputMaskModule} from 'primeng/inputmask';
 import {DateFormatService} from '../services/dateformatservice';
 import {ValidatorsDirective} from '../shared/Customvalidators.directive';
+import {CalendarModule} from 'primeng/calendar';
 
 @NgModule({
-  imports: [
-    ReactiveFormsModule,
-    BrowserModule,
-    BrowserAnimationsModule,
-    TableModule,
-    DialogModule,
-    MultiSelectModule,
-    ContextMenuModule,
-    DropdownModule,
-    ButtonModule,
-    InputTextModule,
-    HttpClientModule,
-    ToolbarModule,
-    RatingModule,
-    FormsModule,
-    RadioButtonModule,
-    InputNumberModule,
-    ConfirmDialogModule,
-    InputTextareaModule,
-    ToastModule,
-    InputMaskModule
-  ],
+    imports: [
+        ReactiveFormsModule,
+        BrowserModule,
+        BrowserAnimationsModule,
+        TableModule,
+        DialogModule,
+        MultiSelectModule,
+        ContextMenuModule,
+        DropdownModule,
+        ButtonModule,
+        InputTextModule,
+        HttpClientModule,
+        ToolbarModule,
+        RatingModule,
+        FormsModule,
+        RadioButtonModule,
+        InputNumberModule,
+        ConfirmDialogModule,
+        InputTextareaModule,
+        ToastModule,
+        InputMaskModule,
+        CalendarModule
+    ],
   declarations: [ TablepageComponent ],
   bootstrap:    [ TablepageComponent ],
   providers: [LocalStorageService, DateFormatService, MessageService, ConfirmationService, ValidatorsDirective]

@@ -5,13 +5,31 @@
     <ng-template pTemplate="left">
       <button pButton label="New" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="openNew()"></button>
       <button pButton label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button>
+      <div class="filters">
+        <input pInputText type="text" (input)="dt.filter($any($event.target).value, 'name', 'contains')" placeholder="Search by Name" class="p-column-filter">
+        <p-calendar (onSelect)="filterDate($event)"
+                    (onClearClick)="dt.filter('', 'startdate', 'equals')"
+                    [showButtonBar]="true"
+                    [readonlyInput]="true"
+                    dateFormat="mm/dd/yy"
+                    placeholder="Select a date">
+        </p-calendar>
+        <p-dropdown [options]="category"
+                    (onChange)="dt.filter($event.value, 'category', 'equals')"
+                    [showClear]="true"
+                    placeholder="Select a category">
+        <ng-template let-option pTemplate="item">
+          <span>{{option.value}}</span>
+        </ng-template>
+      </p-dropdown>
+      </div>
     </ng-template>
     <ng-template pTemplate="right">
       <button pButton label="Save" icon="pi pi-upload" class="p-button p-mr-2" (click)="saveToStorage()"></button>
     </ng-template>
   </p-toolbar>
 
-  <p-table [value]="products"
+  <p-table #dt [value]="products"
            [(selection)]="selectedProducts" [rowHover]="true" dataKey="id">
     <ng-template pTemplate="header">
       <tr>

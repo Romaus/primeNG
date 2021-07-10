@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { Product } from '../types/product';
 import { LocalStorageService } from '../services/localstorageservice';
 import { ConfirmationService } from 'primeng/api';
@@ -6,6 +6,7 @@ import { MessageService } from 'primeng/api';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { ValidatorsDirective } from '../shared/Customvalidators.directive';
 import {DateFormatService} from '../services/dateformatservice';
+import {Table} from 'primeng/table';
 
 @Component({
   selector: 'app-tablepage',
@@ -22,6 +23,9 @@ export class TablepageComponent implements OnInit{
   submitted!: boolean;
   itemForm: any;
   today = new Date(Date.now());
+  category: any;
+
+  @ViewChild('dt') table?: Table;
 
   constructor(
     private localStorageService: LocalStorageService,
@@ -33,6 +37,12 @@ export class TablepageComponent implements OnInit{
   ngOnInit(): void {
     if (this.localStorageService.getItems('items')) {
       this.products = this.localStorageService.getItems('items');
+      this.category = [
+        {value: 'Electronics', label: 'Electronics'},
+        {value: 'Clothing', label: 'Clothing'},
+        {value: 'Accessories', label: 'Accessories'},
+        {value: 'Fitness', label: 'Fitness'}
+      ];
     }
 
     this.itemForm = new FormGroup({
@@ -63,6 +73,11 @@ export class TablepageComponent implements OnInit{
     });
   }
 
+  filterDate(value: any): void {
+    // @ts-ignore
+    this.table.filter(this.formatdate.convertByMomentToUS(value), 'date', 'equals');
+    console.log(this.formatdate.convertByMomentToUS(value));
+  }
   saveToStorage(): void {
     this.localStorageService.updateItems('items', this.products);
     this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Changes saved to LocalStorage', life: 3000});
