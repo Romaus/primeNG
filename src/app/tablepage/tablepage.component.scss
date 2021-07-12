@@ -1,3 +1,9 @@
 :host ::ng-deep button, input, p-calendar, p-dropdown{
   margin: .25rem;
 }
+
+:host ::ng-deep .customTooltip{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

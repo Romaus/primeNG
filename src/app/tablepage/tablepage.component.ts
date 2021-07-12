@@ -37,12 +37,7 @@ export class TablepageComponent implements OnInit{
   ngOnInit(): void {
     if (this.localStorageService.getItems('items')) {
       this.products = this.localStorageService.getItems('items');
-      this.category = [
-        {value: 'Electronics', label: 'Electronics'},
-        {value: 'Clothing', label: 'Clothing'},
-        {value: 'Accessories', label: 'Accessories'},
-        {value: 'Fitness', label: 'Fitness'}
-      ];
+      this.category = this.products.map(el => ({value: el.category, label: el.category}));
     }
 
     this.itemForm = new FormGroup({
@@ -75,8 +70,7 @@ export class TablepageComponent implements OnInit{
 
   filterDate(value: any): void {
     // @ts-ignore
-    this.table.filter(this.formatdate.convertByMomentToUS(value), 'date', 'equals');
-    console.log(this.formatdate.convertByMomentToUS(value));
+    this.table.filter(Date.parse(value), 'startdate', 'gte');
   }
   saveToStorage(): void {
     this.localStorageService.updateItems('items', this.products);
@@ -104,6 +98,8 @@ export class TablepageComponent implements OnInit{
 
   editProduct(product: Product): void {
     this.product = {...product};
+    this.product.startdate = this.formatdate.convertByMomentToUS(this.product.startdate);
+    this.product.enddate = this.formatdate.convertByMomentToUS(this.product.enddate);
     this.productDialog = true;
   }
 
@@ -127,8 +123,8 @@ export class TablepageComponent implements OnInit{
 
   saveProduct(): void {
     this.submitted = true;
-    this.product.startdate = this.formatdate.convertByMomentToUS(this.product.startdate);
-    this.product.enddate = this.formatdate.convertByMomentToUS(this.product.enddate);
+    this.product.startdate = this.formatdate.convertToNumber(this.product.startdate);
+    this.product.enddate = this.formatdate.convertToNumber(this.product.enddate);
     // @ts-ignore
     if (this.product.name.trim()) {
       if (this.product.id && this.products.length !== 0) {

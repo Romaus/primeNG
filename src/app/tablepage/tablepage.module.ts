@@ -29,6 +29,7 @@ import {DateFormatService} from '../services/dateformatservice';
 import {ValidatorsDirective} from '../shared/Customvalidators.directive';
 import {CalendarModule} from 'primeng/calendar';
 import {UnderscoreReplacePipe} from '../shared/underscoreReplace.pipe';
+import {TooltipModule} from 'primeng/tooltip';
 
 @NgModule({
     imports: [
@@ -52,7 +53,8 @@ import {UnderscoreReplacePipe} from '../shared/underscoreReplace.pipe';
         InputTextareaModule,
         ToastModule,
         InputMaskModule,
-        CalendarModule
+        CalendarModule,
+        TooltipModule
     ],
   declarations: [ TablepageComponent, UnderscoreReplacePipe ],
   bootstrap:    [ TablepageComponent ],

@@ -38,7 +38,7 @@
         </th>
         <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
         <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon></th>
-        <th pSortableColumn="email">Pnone <p-sortIcon field="phone"></p-sortIcon></th>
+        <th pSortableColumn="email">Phone <p-sortIcon field="phone"></p-sortIcon></th>
         <th pSortableColumn="description">Description <p-sortIcon field="description"></p-sortIcon></th>
         <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
         <th pSortableColumn="startdate">StartDate <p-sortIcon field="price"></p-sortIcon></th>
@@ -54,11 +54,11 @@
         </td>
         <td>{{product['name'] | underscoreReplace}}</td>
         <td>{{product['email']}}</td>
-        <td>{{product['phone']}}</td>
-        <td>{{product['description']}}</td>
+        <td class="customTooltip" pTooltip="{{product['phone']}}">{{product['phone']}}</td>
+        <td class="customTooltip" pTooltip="{{product['description']}}">{{product['description']}}</td>
         <td>{{product['price'] | currency:'USD'}}</td>
-        <td>{{product['startdate']}}</td>
-        <td>{{product['enddate']}}</td>
+        <td>{{product['startdate'] | date : "dd/MM/yyyy"}}</td>
+        <td>{{product['enddate'] | date : "dd/MM/yyyy"}}</td>
         <td>{{product['category']}}</td>
         <td>
           <button [disabled]="!formatdate.isbetween(today, product['startdate'], product['enddate'])" pButton icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="editProduct(product)"></button>
