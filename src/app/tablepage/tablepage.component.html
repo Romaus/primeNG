@@ -52,7 +52,7 @@
         <td>
           <p-tableCheckbox [value]="product"></p-tableCheckbox>
         </td>
-        <td>{{product['name']}}</td>
+        <td>{{product['name'] | underscoreReplace}}</td>
         <td>{{product['email']}}</td>
         <td>{{product['phone']}}</td>
         <td>{{product['description']}}</td>

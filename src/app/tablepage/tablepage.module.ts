@@ -28,6 +28,7 @@ import {InputMaskModule} from 'primeng/inputmask';
 import {DateFormatService} from '../services/dateformatservice';
 import {ValidatorsDirective} from '../shared/Customvalidators.directive';
 import {CalendarModule} from 'primeng/calendar';
+import {UnderscoreReplacePipe} from '../shared/underscoreReplace.pipe';
 
 @NgModule({
     imports: [
@@ -53,7 +54,7 @@ import {CalendarModule} from 'primeng/calendar';
         InputMaskModule,
         CalendarModule
     ],
-  declarations: [ TablepageComponent ],
+  declarations: [ TablepageComponent, UnderscoreReplacePipe ],
   bootstrap:    [ TablepageComponent ],
   providers: [LocalStorageService, DateFormatService, MessageService, ConfirmationService, ValidatorsDirective]
 })
