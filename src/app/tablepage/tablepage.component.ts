@@ -39,7 +39,12 @@ export class TablepageComponent implements OnInit{
       .subscribe(
         items => {
           this.products = items;
-          this.category = this.products.map(el => ({value: el.category, label: el.category}));
+          this.category = this.products
+            .map(el => ({value: el.category, label: el.category}))
+            .filter((
+              v,
+              i,
+              a) => a.findIndex(t => (t.value === v.value )) === i);
           this.messageService.add({
             severity: 'success',
             summary: 'Successful',
