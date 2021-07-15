@@ -1,12 +1,12 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import { Product } from '../types/product';
-import { LocalStorageService } from '../services/localstorageservice';
-import { ConfirmationService } from 'primeng/api';
-import { MessageService } from 'primeng/api';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import { ValidatorsDirective } from '../shared/Customvalidators.directive';
-import {DateFormatService} from '../services/dateformatservice';
 import {Table} from 'primeng/table';
+import { ConfirmationService, MessageService } from 'primeng-lts/api';
+import { Product } from '../types/product';
+import { ValidatorsDirective } from '../shared/Customvalidators.directive';
+import { LocalStorageService } from '../services/localstorageservice';
+import { DateFormatService } from '../services/dateformatservice';
+
 
 @Component({
   selector: 'app-tablepage',
@@ -35,14 +35,25 @@ export class TablepageComponent implements OnInit{
     private customValidator: ValidatorsDirective) { }
 
   ngOnInit(): void {
-    if (this.localStorageService.getItems('items')) {
-      this.localStorageService.getItems('items')
-        .subscribe((items) => {
+    this.localStorageService.getItems('items')
+      .subscribe(
+        items => {
           this.products = items;
-        });
-      this.category = this.products.map(el => ({value: el.category, label: el.category}));
-    }
-
+          this.category = this.products.map(el => ({value: el.category, label: el.category}));
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Successful',
+            detail: 'Data received',
+            life: 3000});
+        },
+        () => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Data not received',
+            life: 3000});
+        },
+      );
     this.itemForm = new FormGroup({
       name: new FormControl(this.product.name, [Validators.required]),
       email: new FormControl(this.product.email, [
@@ -76,8 +87,23 @@ export class TablepageComponent implements OnInit{
     this.table.filter(Date.parse(value), 'startdate', 'gte');
   }
   saveToStorage(): void {
-    this.localStorageService.updateItems('items', this.products);
-    this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Changes saved to LocalStorage', life: 3000});
+    this.localStorageService.updateItems('items', this.products)
+      .subscribe(
+        () => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Successful',
+            detail: 'Data saved to Storage',
+            life: 3000});
+        },
+        () => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Data not saved',
+            life: 3000});
+        }
+      );
   }
 
   openNew(): void{
@@ -94,7 +120,11 @@ export class TablepageComponent implements OnInit{
       accept: () => {
         this.products = this.products.filter(val => !this.selectedProducts.includes(val));
         this.selectedProducts = null;
-        this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Products Deleted', life: 3000});
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Successful',
+          detail: 'Products Deleted',
+          life: 3000});
       }
     });
   }
@@ -114,7 +144,11 @@ export class TablepageComponent implements OnInit{
       accept: () => {
         this.products = this.products.filter(val => val.id !== product.id);
         this.product = {};
-        this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000});
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Successful',
+          detail: 'Product Deleted',
+          life: 3000});
       }
     });
   }
@@ -132,12 +166,20 @@ export class TablepageComponent implements OnInit{
     if (this.product.name.trim()) {
       if (this.product.id && this.products.length !== 0) {
         this.products[this.findIndexById(this.product.id)] = this.product;
-        this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000});
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Successful',
+          detail: 'Product Updated',
+          life: 3000});
       }
       else {
         this.product.id = this.createId();
         this.products.push(this.product);
-        this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Product Created', life: 3000});
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Successful',
+          detail: 'Product Created',
+          life: 3000});
       }
 
       this.products = [...this.products];
