@@ -36,7 +36,10 @@ export class TablepageComponent implements OnInit{
 
   ngOnInit(): void {
     if (this.localStorageService.getItems('items')) {
-      this.products = this.localStorageService.getItems('items');
+      this.localStorageService.getItems('items')
+        .subscribe((items) => {
+          this.products = items;
+        });
       this.category = this.products.map(el => ({value: el.category, label: el.category}));
     }
 
