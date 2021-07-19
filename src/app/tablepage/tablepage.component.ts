@@ -139,6 +139,7 @@ export class TablepageComponent implements OnInit{
     this.product.startdate = this.formatdate.convertByMomentToUS(this.product.startdate);
     this.product.enddate = this.formatdate.convertByMomentToUS(this.product.enddate);
     this.productDialog = true;
+    console.log(this.product.id);
   }
 
   deleteProduct(product: Product): void {

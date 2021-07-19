@@ -19,6 +19,23 @@ export class LocalStorageService {
       });
     }
 
+    getItemsID(id: string, idItem: string): Observable<Product> {
+      const items = JSON.parse(localStorage.getItem(id) as string);
+      const findIndexById = (id: string): number => {
+        let index = -1;
+        for (let i = 0; i < items.length; i++) {
+          if (items[i].id === id) {
+            index = i;
+            break;
+          }
+        }
+        return index;
+      };
+      return new Observable<Product>(observer => {
+        setTimeout(() => observer.next(items[findIndexById(idItem)]), 0);
+      });
+    }
+
     // updateItems(id: string, items: any): void {
     //   localStorage.setItem(id, JSON.stringify(items));
     // }
