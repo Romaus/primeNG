@@ -10,7 +10,7 @@
       ></button>
       <button pButton label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button>
       <div class="filters">
-        <input pInputText type="text" (input)="dt.filter($any($event.target).value, 'name', 'contains')" placeholder="Search by Name" class="p-column-filter">
+        <input pInputText type="text" (input)="dt.filter(convertNameToSearch($any($event.target).value), 'name', 'contains')" placeholder="Search by Name" class="p-column-filter">
         <p-calendar (onSelect)="filterDate($event)"
                     (onClearClick)="dt.filter('', 'startdate', 'equals')"
                     [showButtonBar]="true"

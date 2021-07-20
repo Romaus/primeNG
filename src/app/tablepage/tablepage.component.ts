@@ -144,6 +144,10 @@ export class TablepageComponent implements OnInit{
       }
     });
   }
+
+  convertNameToSearch(value: string): string{
+    return value.replace(/ /g, '_');
+  }
   // createId(): string {
   //   let id = '';
   //   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
