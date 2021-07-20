@@ -20,6 +20,6 @@ export class AppComponent implements OnInit{
       {label: 'Table', icon: 'pi pi-fw pi-pencil', routerLink: './table'}
     ];
 
-    this.activeItem = this.items[0];
+    // this.activeItem = this.items[0];
   }
 }

@@ -9,6 +9,7 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
 import {ButtonModule} from 'primeng/button';
 import {CommonModule} from '@angular/common';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {ValidatorsDirective} from '../../shared/Customvalidators.directive';
 
 @NgModule({
   imports: [
@@ -27,7 +28,7 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
     exports: [
         ItemComponent
     ],
-    providers: []
+    providers: [ValidatorsDirective]
 })
 
 export class ItemModule { }
