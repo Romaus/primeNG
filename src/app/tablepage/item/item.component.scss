@@ -1,0 +1,13 @@
+.container {
+  max-width: 30rem;
+  margin: 3rem auto;
+}
+:host ::ng-deep .buttons {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+  button {
+    min-width: 10rem;
+  }
+}
+

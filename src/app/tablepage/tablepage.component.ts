@@ -20,7 +20,6 @@ export class TablepageComponent implements OnInit{
   products: Product[] = [];
   product: Product = {};
   selectedProducts: any;
-  submitted!: boolean;
   itemForm: any;
   today = new Date(Date.now());
   category: any;
@@ -48,7 +47,7 @@ export class TablepageComponent implements OnInit{
           this.messageService.add({
             severity: 'success',
             summary: 'Successful',
-            detail: 'Data received',
+            detail: 'Data in table Updated',
             life: 3000});
         },
         () => {
@@ -91,6 +90,7 @@ export class TablepageComponent implements OnInit{
     // @ts-ignore
     this.table.filter(Date.parse(value), 'startdate', 'gte');
   }
+
   saveToStorage(): void {
     this.localStorageService.updateItems('items', this.products)
       .subscribe(
@@ -111,12 +111,6 @@ export class TablepageComponent implements OnInit{
       );
   }
 
-  openNew(): void{
-    this.product = {};
-    this.submitted = false;
-    this.productDialog = true;
-  }
-
   deleteSelectedProducts(): void {
     this.confirmationService.confirm({
       message: 'Are you sure you want to delete the selected products?',
@@ -132,14 +126,6 @@ export class TablepageComponent implements OnInit{
           life: 3000});
       }
     });
-  }
-
-  editProduct(product: Product): void {
-    this.product = {...product};
-    this.product.startdate = this.formatdate.convertByMomentToUS(this.product.startdate);
-    this.product.enddate = this.formatdate.convertByMomentToUS(this.product.enddate);
-    this.productDialog = true;
-    console.log(this.product.id);
   }
 
   deleteProduct(product: Product): void {
@@ -158,60 +144,73 @@ export class TablepageComponent implements OnInit{
       }
     });
   }
-
-  hideDialog(): void {
-    this.productDialog = false;
-    this.submitted = false;
-  }
-
-  saveProduct(): void {
-    this.submitted = true;
-    this.product.startdate = this.formatdate.convertToNumber(this.product.startdate);
-    this.product.enddate = this.formatdate.convertToNumber(this.product.enddate);
-    // @ts-ignore
-    if (this.product.name.trim()) {
-      if (this.product.id && this.products.length !== 0) {
-        this.products[this.findIndexById(this.product.id)] = this.product;
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Successful',
-          detail: 'Product Updated',
-          life: 3000});
-      }
-      else {
-        this.product.id = this.createId();
-        this.products.push(this.product);
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Successful',
-          detail: 'Product Created',
-          life: 3000});
-      }
-
-      this.products = [...this.products];
-      this.productDialog = false;
-      this.product = {};
-    }
-  }
-
-  findIndexById(id: string): number {
-    let index = -1;
-    for (let i = 0; i < this.products.length; i++) {
-      if (this.products[i].id === id) {
-        index = i;
-        break;
-      }
-    }
-
-    return index;
-  }
-
-  createId(): string {
-    let id = '';
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    for ( let i = 0; i < 5; i++ ) {
-      id += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    return id;
-  }
+  // createId(): string {
+  //   let id = '';
+  //   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  //   for ( let i = 0; i < 5; i++ ) {
+  //     id += chars.charAt(Math.floor(Math.random() * chars.length));
+  //   }
+  //   return id;
+  // }
+  //
+  // openNew(): void{
+  //   this.product = {};
+  //   this.submitted = false;
+  //   this.productDialog = true;
+  // }
+  //
+  // editProduct(product: Product): void {
+  //   this.product = {...product};
+  //   this.product.startdate = this.formatdate.convertByMomentToUS(this.product.startdate);
+  //   this.product.enddate = this.formatdate.convertByMomentToUS(this.product.enddate);
+  //   this.productDialog = true;
+  //   console.log(this.product.id);
+  // }
+  //
+  // hideDialog(): void {
+  //   this.productDialog = false;
+  //   this.submitted = false;
+  // }
+  //
+  // saveProduct(): void {
+  //   this.submitted = true;
+  //   this.product.startdate = this.formatdate.convertToNumber(this.product.startdate);
+  //   this.product.enddate = this.formatdate.convertToNumber(this.product.enddate);
+  //   // @ts-ignore
+  //   if (this.product.name.trim()) {
+  //     if (this.product.id && this.products.length !== 0) {
+  //       this.products[this.findIndexById(this.product.id)] = this.product;
+  //       this.messageService.add({
+  //         severity: 'success',
+  //         summary: 'Successful',
+  //         detail: 'Product Updated',
+  //         life: 3000});
+  //     }
+  //     else {
+  //       this.product.id = this.createId();
+  //       this.products.push(this.product);
+  //       this.messageService.add({
+  //         severity: 'success',
+  //         summary: 'Successful',
+  //         detail: 'Product Created',
+  //         life: 3000});
+  //     }
+  //
+  //     this.products = [...this.products];
+  //     this.productDialog = false;
+  //     this.product = {};
+  //   }
+  // }
+  //
+  // findIndexById(id: string): number {
+  //   let index = -1;
+  //   for (let i = 0; i < this.products.length; i++) {
+  //     if (this.products[i].id === id) {
+  //       index = i;
+  //       break;
+  //     }
+  //   }
+  //
+  //   return index;
+  // }
 }

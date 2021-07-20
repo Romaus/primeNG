@@ -1,4 +1,5 @@
-<div pTemplate="content" [formGroup]='itemForm'>
+<div class="container">
+  <div class="p-fluid" [formGroup]='itemForm'>
   <div class="p-field">
     <label for="name">Name</label>
     <input
@@ -104,13 +105,21 @@
     </div>
   </div>
 </div>
-<div pTemplate="footer">
-  <button pButton label="Cancel" icon="pi pi-times" class="p-button-text" ></button>
+  <div class="buttons" pTemplate="footer">
+  <button
+    pButton
+    label="Back to table"
+    icon="pi pi-arrow-left"
+    class="p-button-danger"
+    routerLink="/table"
+  ></button>
   <button
     pButton
     label="Save"
     icon="pi pi-check"
-    class="p-button-text"
+    class="p-button-success"
     [disabled]=!itemForm.valid
+    (click)="saveProduct()"
   ></button>
+</div>
 </div>

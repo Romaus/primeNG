@@ -30,7 +30,6 @@ import {ValidatorsDirective} from '../shared/Customvalidators.directive';
 import {CalendarModule} from 'primeng/calendar';
 import {UnderscoreReplacePipe} from '../shared/underscoreReplace.pipe';
 import {TooltipModule} from 'primeng/tooltip';
-import {ItemRoutingModule} from './tablepage-routing.module';
 import {ItemModule} from './item/item.module';
 
 @NgModule({
@@ -57,7 +56,6 @@ import {ItemModule} from './item/item.module';
         InputMaskModule,
         CalendarModule,
         TooltipModule,
-        ItemRoutingModule,
         ItemModule
     ],
   declarations: [ TablepageComponent, UnderscoreReplacePipe ],

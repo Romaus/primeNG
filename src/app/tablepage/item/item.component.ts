@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Product} from '../../types/product';
 import {LocalStorageService} from '../../services/localstorageservice';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { ValidatorsDirective } from '../../shared/Customvalidators.directive';
@@ -17,16 +17,24 @@ export class ItemComponent implements OnInit {
 
   product: Product = {};
   id = '';
-  stream$: Subscription;
+  stream1$: Subscription;
+  stream2$: Subscription;
   itemForm: any;
+  edit = true;
 
   constructor(
     private localStorageService: LocalStorageService,
     private route: ActivatedRoute,
+    private router: Router,
     private customValidator: ValidatorsDirective,
-    public formatdate: DateFormatService
+    private formatdate: DateFormatService,
   ) {
-    this.stream$ = route.params.subscribe(params => {
+    this.stream1$ = route.url.subscribe(segments => {
+      if (segments[1].path !== 'edit') {
+        this.edit = false;
+      }
+    });
+    this.stream2$ = route.params.subscribe(params => {
       this.id = params.id;
     });
   }
@@ -34,10 +42,14 @@ export class ItemComponent implements OnInit {
   ngOnInit(): void {
     this.localStorageService.getItemsID('items', this.id)
       .subscribe(item => {
-        this.product = item;
-        this.product.startdate = this.formatdate.convertByMomentToUS(this.product.startdate);
-        this.product.enddate = this.formatdate.convertByMomentToUS(this.product.enddate);
-        console.log(this.product);
+        if (item) {
+          this.product = item;
+          this.product.startdate = this.formatdate.convertByMomentToUS(this.product.startdate);
+          this.product.enddate = this.formatdate.convertByMomentToUS(this.product.enddate);
+        }
+        else {
+          this.product.id = this.createId();
+        }
       });
 
     this.itemForm = new FormGroup({
@@ -66,5 +78,28 @@ export class ItemComponent implements OnInit {
         this.customValidator.dateValidator()
       ])
     });
+  }
+
+  createId(): string {
+    let id = '';
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    for ( let i = 0; i < 5; i++ ) {
+      id += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return id;
+  }
+
+  saveProduct(): void {
+    this.product.startdate = this.formatdate.convertToNumber(this.product.startdate);
+    this.product.enddate = this.formatdate.convertToNumber(this.product.enddate);
+    if (this.product.name?.trim()) {
+      if (this.edit) {
+        this.localStorageService.updateItemID(this.id, this.product).subscribe(() => {});
+      }
+      else {
+        this.localStorageService.addNewItem(this.product).subscribe(() => {});
+      }
+      this.router.navigate(['/table']);
+    }
   }
 }

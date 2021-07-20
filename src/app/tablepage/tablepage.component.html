@@ -3,7 +3,11 @@
 <div class="card">
   <p-toolbar styleClass="p-mb-4">
     <ng-template pTemplate="left">
-      <button pButton label="New" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="openNew()"></button>
+      <button pButton label="New"
+              icon="pi pi-plus"
+              class="p-button-success p-mr-2"
+              routerLink="./addnewitem"
+      ></button>
       <button pButton label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button>
       <div class="filters">
         <input pInputText type="text" (input)="dt.filter($any($event.target).value, 'name', 'contains')" placeholder="Search by Name" class="p-column-filter">
@@ -78,125 +82,4 @@
     </ng-template>
   </p-table>
 </div>
-
-<p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Item Details" [modal]="true" styleClass="p-fluid">
-  <ng-template pTemplate="content" [formGroup]='itemForm'>
-    <div class="p-field">
-      <label for="name">Name</label>
-      <input
-        type="text"
-        pInputText
-        id="name"
-        formControlName="name"
-        [(ngModel)]="product.name"
-      />
-      <small class="p-invalid" *ngIf="itemForm.get('name')?.hasError('required')">Name is invalid.</small>
-    </div>
-    <div class="p-field">
-      <label for="name">Email</label>
-      <input type="text" pInputText id="email" required formControlName="email" [(ngModel)]="product.email"/>
-      <small class="p-invalid" *ngIf="itemForm.get('email').hasError('email')">Email is invalid.</small>
-      <small class="p-invalid" *ngIf="itemForm.get('email').hasError('required')">Email is required.</small>
-    </div>
-    <div class="p-field">
-      <label for="name">Phone</label>
-      <p-inputMask [(ngModel)]="product.phone" formControlName="phone" mask="+375(99)999-99-99"></p-inputMask>
-      <small class="p-invalid" *ngIf="itemForm.get('phone').hasError('required')">Phone is required.</small>
-      <small class="p-invalid" *ngIf="itemForm.get('phone').hasError('phonebelcode')">Phone code is invalid. Allow (25|29|33|44)</small>
-    </div>
-    <div class="p-field">
-      <label for="description">Description</label>
-      <textarea
-        id="description"
-        pInputTextarea
-        [(ngModel)]="product.description"
-        rows="3"
-        cols="20"
-        formControlName="description"
-      ></textarea>
-      <small class="p-invalid" *ngIf="itemForm.get('description').hasError('required')">Description is required.</small>
-      <small class="p-invalid" *ngIf="itemForm.get('description').hasError('minlength')">Min length description is 20 chars.</small>
-    </div>
-
-    <div class="p-field">
-      <label class="p-mb-3">Category</label>
-      <div class="p-formgrid p-grid">
-        <div class="p-field-radiobutton p-col-6">
-          <p-radioButton
-            id="category1"
-            name="category"
-            value="Accessories"
-            [(ngModel)]="product.category"
-            formControlName="category"
-          ></p-radioButton>
-          <label for="category1">Accessories</label>
-        </div>
-        <div class="p-field-radiobutton p-col-6">
-          <p-radioButton
-            id="category2"
-            name="category"
-            value="Clothing"
-            [(ngModel)]="product.category"
-            formControlName="category"
-          ></p-radioButton>
-          <label for="category2">Clothing</label>
-        </div>
-        <div class="p-field-radiobutton p-col-6">
-          <p-radioButton id="category3" name="category" value="Electronics" [(ngModel)]="product.category" formControlName="category"></p-radioButton>
-          <label for="category3">Electronics</label>
-        </div>
-        <div class="p-field-radiobutton p-col-6">
-          <p-radioButton id="category4" name="category" value="Fitness" [(ngModel)]="product.category" formControlName="category"></p-radioButton>
-          <label for="category4">Fitness</label>
-        </div>
-      </div>
-    </div>
-    <div class="p-field">
-      <label for="startdate">StartDate</label>
-      <input
-        type="text"
-        pInputText
-        id="startdate"
-        formControlName="startdate"
-        [(ngModel)]="product.startdate"
-      />
-      <small class="p-invalid" *ngIf="itemForm.get('startdate').hasError('required')">StartDate is required.</small>
-      <small class="p-invalid" *ngIf="itemForm.get('startdate').hasError('dateinvalid')">Invalid Date Format</small>
-    </div>
-    <div class="p-field">
-      <label for="enddate">EndDate</label>
-      <input
-        type="text"
-        pInputText
-        id="enddate"
-        formControlName="enddate"
-        [(ngModel)]="product.enddate"
-      />
-      <small class="p-invalid" *ngIf="itemForm.get('enddate').hasError('required')">EndDate is required.</small>
-      <small class="p-invalid" *ngIf="itemForm.get('enddate').hasError('dateinvalid')">Invalid Date Format</small>
-    </div>
-    <div class="p-formgrid p-grid">
-      <div class="p-field p-col">
-        <label for="price">Price</label>
-        <p-inputNumber id="price" [(ngModel)]="product.price" mode="currency" currency="USD" locale="en-US" formControlName="price"></p-inputNumber>
-      </div>
-      <div class="p-field p-col">
-        <label for="quantity">Quantity</label>
-        <p-inputNumber id="quantity" [(ngModel)]="product.quantity" formControlName="quantity"></p-inputNumber>
-      </div>
-    </div>
-   </ng-template>
-  <ng-template pTemplate="footer">
-    <button pButton label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-    <button
-      pButton
-      label="Save"
-      icon="pi pi-check"
-      class="p-button-text"
-      (click)="saveProduct()"
-      [disabled]=!itemForm.valid
-    ></button>
-  </ng-template>
-</p-dialog>
-
 <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
