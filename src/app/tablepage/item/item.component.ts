@@ -32,7 +32,8 @@ export class ItemComponent implements OnInit {
     private confirmationService: ConfirmationService
   ) {
     this.stream1$ = route.url.subscribe(segments => {
-      if (segments[1].path !== 'edit') {
+      console.log(segments);
+      if (segments[0].path !== 'edit') {
         this.edit = false;
       }
     });
@@ -102,13 +103,13 @@ export class ItemComponent implements OnInit {
           icon: 'pi pi-exclamation-triangle',
           accept: () => {
             this.localStorageService.updateItemID(this.id, this.product).subscribe(() => {});
-            this.router.navigate(['/table']);
+            this.router.navigate(['table']);
           }
         });
       }
       else {
         this.localStorageService.addNewItem(this.product).subscribe(() => {});
-        this.router.navigate(['/table']);
+        this.router.navigate(['table']);
       }
     }
   }

@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import {CalendarModule} from 'primeng/calendar';
 import {CommonModule} from '@angular/common';
 
@@ -12,7 +11,6 @@ import {FormsModule} from '@angular/forms';
   ],
   imports: [
     CommonModule,
-    BrowserModule,
     CalendarModule,
     FormsModule
   ],

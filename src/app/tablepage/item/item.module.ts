@@ -8,7 +8,6 @@ import {InputTextModule} from 'primeng/inputtext';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import {ButtonModule} from 'primeng/button';
 import {CommonModule} from '@angular/common';
-import {AppRoutingModule} from '../../app-routing.module';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 
 @NgModule({
@@ -21,7 +20,6 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
     InputTextareaModule,
     ButtonModule,
     CommonModule,
-    AppRoutingModule,
     ConfirmDialogModule
   ],
     declarations: [ItemComponent],

@@ -68,7 +68,7 @@
           <button [disabled]="!formatdate.isbetween(today, product['startdate'], product['enddate'])"
 
                   pButton icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2"
-                  routerLink="./edit/{{product.id}}"
+                  routerLink="edit/{{product.id}}"
           >
           </button>
           <button pButton icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteProduct(product)"></button>

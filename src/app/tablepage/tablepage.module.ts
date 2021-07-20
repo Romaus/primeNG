@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -31,12 +30,13 @@ import {CalendarModule} from 'primeng/calendar';
 import {UnderscoreReplacePipe} from '../shared/underscoreReplace.pipe';
 import {TooltipModule} from 'primeng/tooltip';
 import {ItemModule} from './item/item.module';
+import {TablepageRoutingModule} from './tablepage-routing.module';
+import {CommonModule} from '@angular/common';
 
 @NgModule({
     imports: [
+        CommonModule,
         ReactiveFormsModule,
-        BrowserModule,
-        BrowserAnimationsModule,
         TableModule,
         DialogModule,
         MultiSelectModule,
@@ -44,7 +44,6 @@ import {ItemModule} from './item/item.module';
         DropdownModule,
         ButtonModule,
         InputTextModule,
-        HttpClientModule,
         ToolbarModule,
         RatingModule,
         FormsModule,
@@ -56,7 +55,8 @@ import {ItemModule} from './item/item.module';
         InputMaskModule,
         CalendarModule,
         TooltipModule,
-        ItemModule
+        ItemModule,
+        TablepageRoutingModule
     ],
   declarations: [ TablepageComponent, UnderscoreReplacePipe ],
   bootstrap:    [ TablepageComponent ],

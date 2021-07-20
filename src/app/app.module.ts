@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainpageModule } from './mainpage/mainpage.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {TablepageModule} from './tablepage/tablepage.module';
+import {TabMenuModule} from 'primeng/tabmenu';
+import {BrowserModule} from '@angular/platform-browser';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -13,10 +15,12 @@ import {TablepageModule} from './tablepage/tablepage.module';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     MainpageModule,
-    TablepageModule
+    TablepageModule,
+    TabMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]
