@@ -6,6 +6,7 @@ import {Subscription} from 'rxjs';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { ValidatorsDirective } from '../../shared/Customvalidators.directive';
 import {DateFormatService} from '../../services/dateformatservice';
+import {ConfirmationService} from 'primeng/api';
 
 @Component({
   selector: 'app-item',
@@ -28,6 +29,7 @@ export class ItemComponent implements OnInit {
     private router: Router,
     private customValidator: ValidatorsDirective,
     private formatdate: DateFormatService,
+    private confirmationService: ConfirmationService
   ) {
     this.stream1$ = route.url.subscribe(segments => {
       if (segments[1].path !== 'edit') {
@@ -94,12 +96,20 @@ export class ItemComponent implements OnInit {
     this.product.enddate = this.formatdate.convertToNumber(this.product.enddate);
     if (this.product.name?.trim()) {
       if (this.edit) {
-        this.localStorageService.updateItemID(this.id, this.product).subscribe(() => {});
+        this.confirmationService.confirm({
+          message: 'Save changes in ' + this.product.name + '?',
+          header: 'Confirm',
+          icon: 'pi pi-exclamation-triangle',
+          accept: () => {
+            this.localStorageService.updateItemID(this.id, this.product).subscribe(() => {});
+            this.router.navigate(['/table']);
+          }
+        });
       }
       else {
         this.localStorageService.addNewItem(this.product).subscribe(() => {});
+        this.router.navigate(['/table']);
       }
-      this.router.navigate(['/table']);
     }
   }
 }
