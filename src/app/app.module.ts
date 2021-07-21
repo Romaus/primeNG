@@ -4,7 +4,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainpageModule } from './mainpage/mainpage.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {TablepageModule} from './tablepage/tablepage.module';
 import {TabMenuModule} from 'primeng/tabmenu';
 import {BrowserModule} from '@angular/platform-browser';
 import {HttpClientModule} from '@angular/common/http';
@@ -19,7 +18,6 @@ import {HttpClientModule} from '@angular/common/http';
     BrowserAnimationsModule,
     AppRoutingModule,
     MainpageModule,
-    TablepageModule,
     TabMenuModule
   ],
   providers: [],
