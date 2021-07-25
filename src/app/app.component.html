@@ -1,3 +1,7 @@
+<p-toast></p-toast>
 <p-tabMenu [model]="items!" [activeItem]="activeItem!"></p-tabMenu>
+<p-dropdown [options]="users" [(ngModel)]="selectedUser" optionLabel="name"></p-dropdown>
+<p-button label="Login" (click)="login()"></p-button>
+<button pButton type="button" label="logOut" class="p-button-danger" (click)="logoff()"></button>
 <router-outlet>
 </router-outlet>

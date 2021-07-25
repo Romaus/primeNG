@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule} from '@angular/router';
 import {TablepageComponent} from './tablepage.component';
 import {ItemComponent} from './item/item.component';
+import {UserInfoGuard} from '../guards/user-info.guard';
+import {LocalStorageService} from '../services/localstorageservice';
 
 
 @NgModule({
@@ -9,7 +11,9 @@ import {ItemComponent} from './item/item.component';
     RouterModule.forChild([
       {
         path: '',
-        component: TablepageComponent
+        data : {token : LocalStorageService.getToken()},
+        component: TablepageComponent,
+        canActivate: [UserInfoGuard],
       },
       {
         path: 'addnewitem',

@@ -6,6 +6,7 @@ import { Product } from '../types/product';
 import { ValidatorsDirective } from '../shared/Customvalidators.directive';
 import { LocalStorageService } from '../services/localstorageservice';
 import { DateFormatService } from '../services/dateformatservice';
+import {ActivatedRoute} from '@angular/router';
 
 
 @Component({
@@ -23,6 +24,7 @@ export class TablepageComponent implements OnInit{
   itemForm: any;
   today = new Date(Date.now());
   category: any;
+  token!: string;
 
   @ViewChild('dt') table?: Table;
 
@@ -31,9 +33,12 @@ export class TablepageComponent implements OnInit{
     private messageService: MessageService,
     public formatdate: DateFormatService,
     private confirmationService: ConfirmationService,
-    private customValidator: ValidatorsDirective) { }
+    private customValidator: ValidatorsDirective,
+    private route: ActivatedRoute
+    ) { }
 
   ngOnInit(): void {
+    this.route.data.subscribe(data => this.token = data.token);
     this.localStorageService.getItems('items')
       .subscribe(
         items => {

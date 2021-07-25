@@ -7,6 +7,12 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {TabMenuModule} from 'primeng/tabmenu';
 import {BrowserModule} from '@angular/platform-browser';
 import {HttpClientModule} from '@angular/common/http';
+import {DropdownModule} from 'primeng/dropdown';
+import {FormsModule} from '@angular/forms';
+import {ButtonModule} from 'primeng/button';
+import {LocalStorageService} from './services/localstorageservice';
+import {MessageService} from 'primeng-lts/api';
+import {ToastModule} from 'primeng/toast';
 
 @NgModule({
   declarations: [
@@ -18,9 +24,13 @@ import {HttpClientModule} from '@angular/common/http';
     BrowserAnimationsModule,
     AppRoutingModule,
     MainpageModule,
-    TabMenuModule
+    TabMenuModule,
+    DropdownModule,
+    FormsModule,
+    ButtonModule,
+    ToastModule
   ],
-  providers: [],
+  providers: [LocalStorageService, MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

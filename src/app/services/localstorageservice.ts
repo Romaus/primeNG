@@ -3,11 +3,18 @@ import {Injectable} from '@angular/core';
 
 import { Product } from '../types/product';
 import {Observable} from 'rxjs';
+import {User} from '../types/users';
 
 @Injectable()
 export class LocalStorageService {
 
     constructor(private http: HttpClient) { }
+
+  static getToken(): any {
+      if (localStorage.getItem('user')) {
+        return JSON.parse(localStorage.getItem('user') as string).token;
+      }
+  }
 
     /*getItems(id: string): any {
       return JSON.parse(localStorage.getItem(id) as string);
@@ -25,7 +32,7 @@ export class LocalStorageService {
       }
     }
     return index;
-  };
+  }
 
     getItems(id: string): Observable<Product[]> {
       return new Observable<Product[]>(observer => {
@@ -63,5 +70,17 @@ export class LocalStorageService {
         localStorage.setItem(id, JSON.stringify(items));
         observer.next();
       });
+    }
+
+    getUserInfo(): User {
+      return JSON.parse(localStorage.getItem('user') as string);
+    }
+
+    removeUserInfo(): void {
+      localStorage.removeItem('user');
+    }
+
+    setUserInfo(user: User): void {
+      localStorage.setItem('user', JSON.stringify(user));
     }
 }
