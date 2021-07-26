@@ -4,6 +4,7 @@ import {User} from './types/users';
 import {LocalStorageService} from './services/localstorageservice';
 import {DateFormatService} from './services/dateformatservice';
 import {ValidatorsDirective} from './shared/Customvalidators.directive';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -13,29 +14,29 @@ import {ValidatorsDirective} from './shared/Customvalidators.directive';
 export class AppComponent implements OnInit{
   title = 'testPrimeNG';
 
-  items: MenuItem[] | undefined;
-
-  activeItem: MenuItem | undefined;
+  items: MenuItem[]  = [
+    {label: 'Home', icon: 'pi pi-fw pi-home', routerLink: '/'},
+    {label: 'Calendar', icon: 'pi pi-fw pi-calendar', routerLink: 'mainpage'},
+    {label: 'TableGuest', icon: 'pi pi-fw pi-pencil', routerLink: 'tableguest'}
+  ];
 
   users!: User[];
 
   selectedUser!: User;
 
   constructor(
-    private localStorageService: LocalStorageService) { }
+    public localStorageService: LocalStorageService,
+    private router: Router) { }
 
   ngOnInit(): void {
-    this.items = [
-      {label: 'Home', icon: 'pi pi-fw pi-home', routerLink: './'},
-      {label: 'Calendar', icon: 'pi pi-fw pi-calendar', routerLink: './mainpage'},
-      {label: 'Table', icon: 'pi pi-fw pi-pencil', routerLink: './table'}
-    ];
+    if (this.localStorageService.getUserInfo()) {
+      this.items.pop();
+      this.items.push({label: 'Table', icon: 'pi pi-fw pi-pencil', routerLink: './table'});
+    }
     this.users = [
       {name: 'Admin', role: 'ADMIN'},
-      {name: 'Moderator', role: 'MODERATOR'},
-      {name: 'Guest', role: 'GUEST'}
+      {name: 'Moderator', role: 'MODERATOR'}
     ];
-    this.activeItem = this.items[0];
     this.selectedUser = this.users[0];
   }
 
@@ -44,10 +45,16 @@ export class AppComponent implements OnInit{
       this.selectedUser.token = this.createToken();
     }
     this.localStorageService.setUserInfo(this.selectedUser);
+    this.items.pop();
+    this.items.push({label: 'Table', icon: 'pi pi-fw pi-pencil', routerLink: './table'});
   }
 
   logoff(): void {
-    this.localStorageService.removeUserInfo();
+    if (this.localStorageService.getUserInfo()) {
+      this.localStorageService.removeUserInfo();
+      this.items.pop();
+      this.items.push({label: 'TableGuest', icon: 'pi pi-fw pi-pencil', routerLink: './tableguest'});
+    }
   }
 
   createToken(): string {

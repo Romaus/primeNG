@@ -24,7 +24,7 @@ export class TablepageComponent implements OnInit{
   itemForm: any;
   today = new Date(Date.now());
   category: any;
-  token!: string;
+  readonly !: string;
 
   @ViewChild('dt') table?: Table;
 
@@ -38,7 +38,9 @@ export class TablepageComponent implements OnInit{
     ) { }
 
   ngOnInit(): void {
-    this.route.data.subscribe(data => this.token = data.token);
+    this.route.data.subscribe(data => {
+      this.readonly = data.readonly;
+    });
     this.localStorageService.getItems('items')
       .subscribe(
         items => {
@@ -49,11 +51,11 @@ export class TablepageComponent implements OnInit{
               v,
               i,
               a) => a.findIndex(t => (t.value === v.value )) === i);
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Successful',
-            detail: 'Data in table Updated',
-            life: 3000});
+          // this.messageService.add({
+          //   severity: 'success',
+          //   summary: 'Successful',
+          //   detail: 'Data in table Updated',
+          //   life: 3000});
         },
         () => {
           this.messageService.add({

@@ -10,12 +10,6 @@ export class LocalStorageService {
 
     constructor(private http: HttpClient) { }
 
-  static getToken(): any {
-      if (localStorage.getItem('user')) {
-        return JSON.parse(localStorage.getItem('user') as string).token;
-      }
-  }
-
     /*getItems(id: string): any {
       return JSON.parse(localStorage.getItem(id) as string);
     }*/

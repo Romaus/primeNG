@@ -3,7 +3,7 @@ import {
   CanActivate,
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
-  Router
+  Router, ActivatedRoute
 } from '@angular/router';
 import {EMPTY, Observable, of} from 'rxjs';
 import {User} from '../types/users';
@@ -18,7 +18,8 @@ export class UserInfoGuard implements CanActivate {
   constructor(
     private router: Router,
     private storage: LocalStorageService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private route: ActivatedRoute
   ) {}
   canActivate(
     route: ActivatedRouteSnapshot,

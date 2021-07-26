@@ -3,7 +3,6 @@ import { RouterModule} from '@angular/router';
 import {TablepageComponent} from './tablepage.component';
 import {ItemComponent} from './item/item.component';
 import {UserInfoGuard} from '../guards/user-info.guard';
-import {LocalStorageService} from '../services/localstorageservice';
 
 
 @NgModule({
@@ -11,7 +10,6 @@ import {LocalStorageService} from '../services/localstorageservice';
     RouterModule.forChild([
       {
         path: '',
-        data : {token : LocalStorageService.getToken()},
         component: TablepageComponent,
         canActivate: [UserInfoGuard],
       },
