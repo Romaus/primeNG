@@ -10,19 +10,21 @@ import {ButtonModule} from 'primeng/button';
 import {CommonModule} from '@angular/common';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {ValidatorsDirective} from '../../shared/Customvalidators.directive';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
-  imports: [
-    ReactiveFormsModule,
-    InputMaskModule,
-    InputNumberModule,
-    RadioButtonModule,
-    InputTextModule,
-    InputTextareaModule,
-    ButtonModule,
-    CommonModule,
-    ConfirmDialogModule
-  ],
+    imports: [
+        ReactiveFormsModule,
+        InputMaskModule,
+        InputNumberModule,
+        RadioButtonModule,
+        InputTextModule,
+        InputTextareaModule,
+        ButtonModule,
+        CommonModule,
+        ConfirmDialogModule,
+        RouterModule
+    ],
     declarations: [ItemComponent],
     bootstrap: [],
     exports: [

@@ -7,6 +7,7 @@ import { ValidatorsDirective } from '../shared/Customvalidators.directive';
 import { LocalStorageService } from '../services/localstorageservice';
 import { DateFormatService } from '../services/dateformatservice';
 import {ActivatedRoute} from '@angular/router';
+import {UserinfoService} from '../services/userinfoservice';
 
 
 @Component({
@@ -31,6 +32,7 @@ export class TablepageComponent implements OnInit{
   constructor(
     private localStorageService: LocalStorageService,
     private messageService: MessageService,
+    public userinfo: UserinfoService,
     public formatdate: DateFormatService,
     private confirmationService: ConfirmationService,
     private customValidator: ValidatorsDirective,
@@ -39,32 +41,10 @@ export class TablepageComponent implements OnInit{
 
   ngOnInit(): void {
     this.route.data.subscribe(data => {
+      this.products = data.tablepage.tablelist;
+      this.category = data.tablepage.categories;
       this.readonly = data.readonly;
     });
-    this.localStorageService.getItems('items')
-      .subscribe(
-        items => {
-          this.products = items;
-          this.category = this.products
-            .map(el => ({value: el.category, label: el.category}))
-            .filter((
-              v,
-              i,
-              a) => a.findIndex(t => (t.value === v.value )) === i);
-          // this.messageService.add({
-          //   severity: 'success',
-          //   summary: 'Successful',
-          //   detail: 'Data in table Updated',
-          //   life: 3000});
-        },
-        () => {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: 'Data not received',
-            life: 3000});
-        },
-      );
     this.itemForm = new FormGroup({
       name: new FormControl(this.product.name, [Validators.required]),
       email: new FormControl(this.product.email, [

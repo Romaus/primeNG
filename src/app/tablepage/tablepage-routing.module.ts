@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule} from '@angular/router';
 import {TablepageComponent} from './tablepage.component';
 import {ItemComponent} from './item/item.component';
-import {UserInfoGuard} from '../guards/user-info.guard';
+import {TabledataResolver} from '../resolvers/tabledata.resolver';
 
 
 @NgModule({
@@ -11,7 +11,7 @@ import {UserInfoGuard} from '../guards/user-info.guard';
       {
         path: '',
         component: TablepageComponent,
-        canActivate: [UserInfoGuard],
+        resolve: { tablepage: TabledataResolver }
       },
       {
         path: 'addnewitem',

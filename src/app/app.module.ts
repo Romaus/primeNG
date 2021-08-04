@@ -15,6 +15,7 @@ import {ConfirmationService, MessageService} from 'primeng-lts/api';
 import {ToastModule} from 'primeng/toast';
 import {DateFormatService} from './services/dateformatservice';
 import {ValidatorsDirective} from './shared/Customvalidators.directive';
+import {UserinfoService} from './services/userinfoservice';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,13 @@ import {ValidatorsDirective} from './shared/Customvalidators.directive';
     ButtonModule,
     ToastModule
   ],
-  providers: [LocalStorageService, MessageService, DateFormatService, ConfirmationService, ValidatorsDirective],
+  providers: [
+    LocalStorageService,
+    MessageService,
+    DateFormatService,
+    ConfirmationService,
+    ValidatorsDirective,
+    UserinfoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

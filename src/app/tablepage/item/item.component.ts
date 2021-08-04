@@ -32,9 +32,10 @@ export class ItemComponent implements OnInit {
     private confirmationService: ConfirmationService
   ) {
     this.stream1$ = route.url.subscribe(segments => {
-      console.log(segments);
+      // console.log(segments);
       if (segments[0].path !== 'edit') {
         this.edit = false;
+        this.product.id = this.createId();
       }
     });
     this.stream2$ = route.params.subscribe(params => {

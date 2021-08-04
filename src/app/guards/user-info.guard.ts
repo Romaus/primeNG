@@ -3,12 +3,12 @@ import {
   CanActivate,
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
-  Router, ActivatedRoute
+  Router
 } from '@angular/router';
 import {EMPTY, Observable, of} from 'rxjs';
 import {User} from '../types/users';
-import {LocalStorageService} from '../services/localstorageservice';
 import {MessageService} from 'primeng-lts/api';
+import {UserinfoService} from '../services/userinfoservice';
 
 @Injectable({
   providedIn: 'root'
@@ -17,15 +17,14 @@ export class UserInfoGuard implements CanActivate {
   userInfo = {} as User;
   constructor(
     private router: Router,
-    private storage: LocalStorageService,
+    private userinfoservice: UserinfoService,
     private messageService: MessageService,
-    private route: ActivatedRoute
   ) {}
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> {
-    if ( this.storage.getUserInfo() ) {
+    if ( this.userinfoservice.userinfo ) {
       return of(true);
     } else {
       this.messageService.add({
@@ -34,7 +33,7 @@ export class UserInfoGuard implements CanActivate {
         detail: 'You are not authorized to this page',
         life: 3000});
       this.router.navigate(['']);
-      return of(false);
+      return EMPTY;
     }
   }
 }

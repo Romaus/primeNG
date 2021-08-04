@@ -1,9 +1,9 @@
 <p-toast></p-toast>
 <p-tabMenu [model]="items!"></p-tabMenu>
 <div class="login">
-  <p-dropdown *ngIf="!this.localStorageService.getUserInfo()" [options]="users" [(ngModel)]="selectedUser" optionLabel="name"></p-dropdown>
-  <p-button *ngIf="!this.localStorageService.getUserInfo()" label="Login" (click)="login()" ></p-button>
-  <button *ngIf="this.localStorageService.getUserInfo()" pButton type="button" label="logOut" class="p-button-danger" (click)="logoff()" ></button>
+  <p-dropdown *ngIf="!this.userinfoservice.userinfo" [options]="users" [(ngModel)]="selectedUser" optionLabel="name"></p-dropdown>
+  <p-button *ngIf="!this.userinfoservice.userinfo" label="Login" (click)="login()" ></p-button>
+  <button *ngIf="this.userinfoservice.userinfo" pButton type="button" label="logOut" class="p-button-danger" (click)="logoff()" ></button>
 </div>
 <router-outlet>
 </router-outlet>

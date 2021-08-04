@@ -5,6 +5,7 @@ import {LocalStorageService} from './services/localstorageservice';
 import {DateFormatService} from './services/dateformatservice';
 import {ValidatorsDirective} from './shared/Customvalidators.directive';
 import {Router} from '@angular/router';
+import {UserinfoService} from './services/userinfoservice';
 
 @Component({
   selector: 'app-root',
@@ -25,17 +26,16 @@ export class AppComponent implements OnInit{
   selectedUser!: User;
 
   constructor(
-    public localStorageService: LocalStorageService,
-    private router: Router) { }
+    public userinfoservice: UserinfoService) { }
 
   ngOnInit(): void {
-    if (this.localStorageService.getUserInfo()) {
+    if (this.userinfoservice.userinfo) {
       this.items.pop();
       this.items.push({label: 'Table', icon: 'pi pi-fw pi-pencil', routerLink: './table'});
     }
     this.users = [
-      {name: 'Admin', role: 'ADMIN'},
-      {name: 'Moderator', role: 'MODERATOR'}
+      {name: 'Boris', role: 'ADMIN'},
+      {name: 'Robert', role: 'MODERATOR'}
     ];
     this.selectedUser = this.users[0];
   }
@@ -44,14 +44,15 @@ export class AppComponent implements OnInit{
     if (this.selectedUser && (this.selectedUser.role === 'ADMIN' || this.selectedUser.role === 'MODERATOR')) {
       this.selectedUser.token = this.createToken();
     }
-    this.localStorageService.setUserInfo(this.selectedUser);
+    this.userinfoservice.setUserInfo(this.selectedUser);
     this.items.pop();
     this.items.push({label: 'Table', icon: 'pi pi-fw pi-pencil', routerLink: './table'});
+    // console.log(this.items);
   }
 
   logoff(): void {
-    if (this.localStorageService.getUserInfo()) {
-      this.localStorageService.removeUserInfo();
+    if (this.userinfoservice.userinfo) {
+      this.userinfoservice.removeUserInfo();
       this.items.pop();
       this.items.push({label: 'TableGuest', icon: 'pi pi-fw pi-pencil', routerLink: './tableguest'});
     }

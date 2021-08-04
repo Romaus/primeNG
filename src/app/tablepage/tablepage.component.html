@@ -29,6 +29,7 @@
       </div>
     </ng-template>
     <ng-template pTemplate="right">
+      <div *ngIf="userinfo.userinfo"> {{userinfo.userinfo.name}} {{userinfo.userinfo.role}}</div>
       <button *ngIf="!readonly" pButton label="Save" icon="pi pi-upload" class="p-button p-mr-2" (click)="saveToStorage()"></button>
     </ng-template>
   </p-toolbar>
